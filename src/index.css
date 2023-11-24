@@ -1,13 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+}
+@layer base {
+  @font-face {
+    font-family: "Pixellari";
+    src: url("./fonts/Pixellari.ttf");
+  }
+  @font-face {
+    font-family: "PressStart2P-Regular";
+    src: url("./fonts/PressStart2P-Regular.ttf");
+  }
+  @font-face {
+    font-family: "DrukText-Medium-Trial-1";
+    src: url("./fonts/DrukText-Medium-Trial-1.otf");
+  }
+}
+.bg-cover {
+  background-size: cover;
+  /* background-position: center; */
+}
+.project_dne_first_axis {
+  transform: rotate(-4.81deg);
+}
+.project_dne_second_axis {
+  transform: rotate(6.64deg);
+  margin-top: -65px;
+}
+.roadmap {
+  width: 80%;
+  margin:auto;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.highlight {
+  font-family: "Pixellari";
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+  /* or 90px */
+  color: #000000;
+  text-shadow: 4px 0px rgba(241, 113, 113, 0.9),
+    0px 4px rgba(241, 113, 113, 0.9), -4px 0px rgba(241, 113, 113, 0.9),
+    0px -4px rgba(241, 113, 113, 0.9);
+}
+.bg-main {
+  background-size: cover;
+  width: 100%;
+  box-sizing: border-box;
+}
+.info-box {
+  background: rgba(255, 255, 255, 0.05)
+}
+.banner {
+  top: -50rem
+}
+@media screen and (max-width: 480px) {
+  .roadmap {
+   width: 100%;
+  }
+  .banner {
+    top: -10rem
+  }
+}
+
+@media screen and (min-width:640px) and  (max-width: 1440px) { 
+  .banner {
+    top: -40rem
+  }
 }

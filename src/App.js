@@ -19,17 +19,28 @@ import { useState } from "react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { Link } from "react-scroll";
 import { useAccount , useNetwork, useContractRead ,useContractWrite, usePrepareContractWrite} from 'wagmi';
-import {useEffect} from "react";
-
+import {useEffect, useMemo} from "react";
+import {toBigInt} from "ethers"
 function App() {
-  const [mintAmount, setMintAmount] = useState(1);
+  const [mintAmount, setMintAmount] = useState(2);
   const handleMintAmount = (operation) => {
-
+    if(operation === "+") {
+      setMintAmount(mintAmount => {
+        if(mintAmount < 3) return mintAmount + 1;
+        else return mintAmount
+      })
+    }else if(operation === "-") {
+      setMintAmount(mintAmount => {
+        if(mintAmount > 1) return mintAmount - 1;
+        else return mintAmount
+      })
+    }
   };
+  const [status, setStatus] = useState("")
   const {openConnectModal} = useConnectModal()
   const {address} = useAccount()
   const { chain } = useNetwork();
-  let [proof, setProof] = useState("dasda");
+  let [proof, setProof] = useState("");
   const contract =
     contracts[
       chain?.name === "mainnet" ? "mainnet" : "goerli"
@@ -45,22 +56,33 @@ function App() {
     ...sharedConfig,
     functionName: "saleState",
   });
-  const { data: whitelistPrice } = useContractRead({
+  const { data: whitelistPrice , error} = useContractRead({
     ...sharedConfig,
     functionName: "whitelistPrice",
   });
+  const { data: publicPrice } = useContractRead({
+    ...sharedConfig,
+    functionName: "publicPrice",
+  });
+
+  
 
   const { config: mintWhitelistConfig } = usePrepareContractWrite({
     ...sharedConfig,
     functionName: "mintWhitelist",
-    args: [ proof],
+    args: [proof],
     account: address,
     value: whitelistPrice,
     onSuccess(data) {
-      console.log("Able to claim vesting : ", data);
+      setStatus("")
     },
-    onError(data) {
-      console.log("Error to claim vesting : ", data);
+    onError(error) {
+      if(saleState !== 1) {
+        return
+      }
+      if(error.message.includes("Whitelist_CONSUMED")) {
+        setStatus("You have consumed the whitelist of phase 1")
+      } 
     },
   });
   const { config: mintNextWhitelistConfig } = usePrepareContractWrite({
@@ -70,21 +92,49 @@ function App() {
     account: address,
     value: whitelistPrice,
     onSuccess(data) {
-      console.log("Able to claim vesting : ", data);
+      setStatus("")
     },
-    onError(data) {
-      console.log("Error to claim vesting : ", data);
+    onError(error) {
+      if(saleState !== 2) {
+        return
+      }
+      if(error.message.includes("Whitelist_CONSUMED")) {
+        setStatus("You have consumed the whitelist of phase 2")
+      } 
     },
   });
 
+  const { config: mintPublicConfig } = usePrepareContractWrite({
+    ...sharedConfig,
+    functionName: "mintPublic",
+    args: [mintAmount],
+    account: address,
+    value: publicPrice ? publicPrice * toBigInt(mintAmount): 0,
+    onSuccess(data) {
+    },
+    onError(error) {
+      if(saleState !== 3) {
+        return
+      }
+      if(error.message.includes("Exceeds mint per wallet")) {
+        setStatus("You have minted max per wallet")
+      } 
+    },
+  });
+
+
   const { data: mintWhitelistData, write: mintWhitelistWrite } = useContractWrite(mintWhitelistConfig);
   const { data: mintNextWhitelistData, write: mintNextWhitelistWrite } = useContractWrite(mintNextWhitelistConfig);
+  const { data: mintPublictData, write: mintPublicWrite } = useContractWrite(mintPublicConfig);
 
   useEffect(() => {
     if(address && saleState) {
       const proofData = proofs[address]
       if(proofData) {
         setProof(proofData.proof);
+        setStatus("")
+      }else {
+        setStatus("You are not whitelisted")
       }
     }
   }, [address, saleState])
@@ -96,10 +146,30 @@ function App() {
     }else if( saleState === 2) {
       mintNextWhitelistWrite && mintNextWhitelistWrite()
     } else if (saleState === 3) {
-
+      mintPublicWrite && mintPublicWrite()
     }
     return;
   }
+
+  const Phase = useMemo(() => {
+    if(saleState === 0) {
+      return "MINT HAS NOT STARTED"
+    }
+    else if(saleState === 1) { return "WHITELIST PHASE 1"}
+    else if(saleState === 2) { return "WHITELIST PHASE 2"}
+    else if(saleState === 3) { return "PUBLIC MINT PHASE "}
+    return null
+  }, [saleState])
+
+  const mintDetails = useMemo(() => {
+    if(saleState === 1) { return "Mint 3 for 0.005"}
+    else if(saleState === 2) { return "Mint 3 for 0.005"}
+    else if(saleState === 3) { return "Mint 1 for .0025 "}
+    return null
+  }, [saleState])
+
+
+
   return (
       <main className="bg-black font-[pixellari] ">
       <motion.div
@@ -236,36 +306,41 @@ function App() {
             <CharactersCard imageUrl={img} key={img} />
           ))}
         </motion.div>
+        {Phase && <p className='text-white m-auto text-3xl mt-4'>{Phase}</p>}
+        {mintDetails && <p className=' m-auto text-2xl mt-1 text-[red]'>{mintDetails}</p>}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="flex gap-4  font-[pixellari] text-3xl w-1/6 justify-center mt-8 mx-auto text-white"
+          className="flex gap-4  font-[pixellari] text-3xl w-1/6 justify-center mt-2 mx-auto text-white"
         >
          {!address && <button onClick={() => openConnectModal()}>Connect wallet</button>}
-          <button
+         {saleState === 3  &&   <><button
             className="text-white"
-            onClick={() => handleMintAmount()}
+            onClick={() => handleMintAmount("-")}
           >
             {"<"}
           </button>
           <p className="text-lime-400 ">{mintAmount}</p>
           <button
             className="text-white"
-            onClick={() => handleMintAmount()}
+            onClick={() => handleMintAmount("+")}
           >
             {">"}
           </button>
+          </>}
+        
         </motion.div>
-        <button
-            className="text-white"
+        {saleState && <button
+            className="text-white border-[red] border-2 px-4 py-1 w-fit m-auto text-2xl mt-4 bg-[red] hover:opacity-80 cursor-pointer"
             onClick={() => handleMint()}
+            disabled={status}
           >
-            {"Mint"}
+            {"MINT "} {saleState !== 3 ? <span>3</span>: ""}
           </button>
-
-        <button className="btn w-min mx-auto font-[pixellari] px-8 py-2 border-2 border-white mt-6 bg-black text-white hidden">
-          MINT
-        </button>
+          
+}
+          {status && <p className='text-[red] text-center mt-4'>{status}</p>}
+        
         <p className="text-[red] text-center mt-12 text-3xl uppercase font-[pixellari]">Undead Chefs</p>
         <p className="text-white text-center">Copyright © Undead Chefs 2023</p>
       </div>

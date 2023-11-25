@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "big-integer": "^1.6.52",
+    "ethers": "^6.8.1",
     "framer-motion": "^10.16.5",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.3.11",

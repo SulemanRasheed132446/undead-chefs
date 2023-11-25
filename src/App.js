@@ -9,14 +9,17 @@ import {
   MINTING_COLORED_TEXT,
   MINTING_NORMAL_TEXT,
   CHARACTERS,
+  contracts
 } from "./constants";
+import proofs from "./proofs";
 import MainCharactersCard from "./components/MainCharactersCard";
 import { motion } from "framer-motion";
 import CharactersCard from "./components/CharactersCard";
 import { useState } from "react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { Link } from "react-scroll";
-import { useAccount } from 'wagmi';
+import { useAccount , useNetwork, useContractRead ,useContractWrite, usePrepareContractWrite} from 'wagmi';
+import {useEffect} from "react";
 
 function App() {
   const [mintAmount, setMintAmount] = useState(1);
@@ -25,8 +28,78 @@ function App() {
   };
   const {openConnectModal} = useConnectModal()
   const {address} = useAccount()
+  const { chain } = useNetwork();
+  let [proof, setProof] = useState("dasda");
+  const contract =
+    contracts[
+      chain?.name === "mainnet" ? "mainnet" : "goerli"
+    ];
 
-  console.log(openConnectModal)
+    const sharedConfig = {
+      address: contract.address,
+      abi: contract.abi,
+      account: address,
+      watch: true,
+  };
+  const { data: saleState } = useContractRead({
+    ...sharedConfig,
+    functionName: "saleState",
+  });
+  const { data: whitelistPrice } = useContractRead({
+    ...sharedConfig,
+    functionName: "whitelistPrice",
+  });
+
+  const { config: mintWhitelistConfig } = usePrepareContractWrite({
+    ...sharedConfig,
+    functionName: "mintWhitelist",
+    args: [ proof],
+    account: address,
+    value: whitelistPrice,
+    onSuccess(data) {
+      console.log("Able to claim vesting : ", data);
+    },
+    onError(data) {
+      console.log("Error to claim vesting : ", data);
+    },
+  });
+  const { config: mintNextWhitelistConfig } = usePrepareContractWrite({
+    ...sharedConfig,
+    functionName: "mintNextWhitelist",
+    args: [proof],
+    account: address,
+    value: whitelistPrice,
+    onSuccess(data) {
+      console.log("Able to claim vesting : ", data);
+    },
+    onError(data) {
+      console.log("Error to claim vesting : ", data);
+    },
+  });
+
+  const { data: mintWhitelistData, write: mintWhitelistWrite } = useContractWrite(mintWhitelistConfig);
+  const { data: mintNextWhitelistData, write: mintNextWhitelistWrite } = useContractWrite(mintNextWhitelistConfig);
+
+  useEffect(() => {
+    if(address && saleState) {
+      const proofData = proofs[address]
+      if(proofData) {
+        setProof(proofData.proof);
+      }
+    }
+  }, [address, saleState])
+
+
+  const handleMint = () => {
+    if(saleState === 1) {
+      mintWhitelistWrite && mintWhitelistWrite()
+    }else if( saleState === 2) {
+      mintNextWhitelistWrite && mintNextWhitelistWrite()
+    } else if (saleState === 3) {
+
+    }
+    return;
+  }
   return (
       <main className="bg-black font-[pixellari] ">
       <motion.div
@@ -183,6 +256,12 @@ function App() {
             {">"}
           </button>
         </motion.div>
+        <button
+            className="text-white"
+            onClick={() => handleMint()}
+          >
+            {"Mint"}
+          </button>
 
         <button className="btn w-min mx-auto font-[pixellari] px-8 py-2 border-2 border-white mt-6 bg-black text-white hidden">
           MINT

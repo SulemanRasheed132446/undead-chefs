@@ -56,6 +56,15 @@ function App() {
     ...sharedConfig,
     functionName: "saleState",
   });
+  const { data: minted } = useContractRead({
+    ...sharedConfig,
+    functionName: "totalSupply",
+  });
+  const { data: supply } = useContractRead({
+    ...sharedConfig,
+    functionName: "maxSupply",
+  });
+  console.log(supply , minted);
   const { data: whitelistPrice , error} = useContractRead({
     ...sharedConfig,
     functionName: "whitelistPrice",
@@ -299,6 +308,7 @@ function App() {
             <CharactersCard imageUrl={img} key={img} />
           ))}
         </motion.div>
+        {(supply!==undefined  && minted !== undefined) && (<p className='text-white m-auto text-3xl mt-4'>{minted + ''} / { supply + ''}</p>)}
         {Phase && <p className='text-white m-auto text-3xl mt-4'>{Phase}</p>}
         {mintDetails && <p className=' m-auto text-2xl mt-1 text-[red]'>{mintDetails}</p>}
         <motion.div

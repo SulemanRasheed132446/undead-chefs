@@ -134,7 +134,9 @@ function App() {
         setProof(proofData.proof);
         setStatus("")
       }else {
+       if(saleState !== 3) {
         setStatus("You are not whitelisted")
+       } 
       }
     }
   }, [address, saleState])
@@ -178,7 +180,7 @@ function App() {
         transition={{
           delay: 0.5,
         }}
-        className="pb-12"
+        className="pb-12 py-4"
       >
         <div className="flex flex-row-reverse items-center gap-4 mr-4 md:mr-28">
           <img src="/icons/discord-icon.svg" />
@@ -189,9 +191,8 @@ function App() {
           >
             <img src="/icons/twitter-icon.svg" />
           </a>
-          <img src="/icons/crypto-wallet.svg" />
+         {address? <p className='text-[red]  mt-1'>{address.slice(0, 5)}...</p> : <img src="/icons/crypto-wallet.svg" onClick={openConnectModal} className="cursor-pointer"/>}
         </div>
-
         <h1 className="text-center stroke-red-500 text-4xl md:text-8xl w-2/3 mt-16 mx-auto font-[pixellari] highlight">UNDEAD CHEFS</h1>
         <h1 className="text-center stroke-lime-500 text-4xl md:text-7xl w-2/3 mt-16 mx-auto font-[pixellari] highlight">
           A NEW ERA OF STORYTELLING BEGINS
@@ -214,11 +215,11 @@ function App() {
             </p>
           </Link>
           <div className="flex flex-wrap md:flex-nowrap w-9/12 lg:w-7/12  xl:w-1/2  ">
-            <div className="pt-4 md:pt-14 md:w-9/12  md:w-auto text-white md:m-auto md:m-0 ">
+            <div className="pt-4 md:pt-14   md:w-auto text-white md:m-auto md:m-0 ">
               <h1 className="font-[pixellari]  text-4xl mt-2 highlight text-center md:text-center">
                 INTRO
               </h1>
-              <p className="font-[pixellari] text-sm md:text-lg mt-4 leading-6 text-justify md:text-center font-[pixellari]">
+              <p className="text-sm md:text-lg mt-4 leading-6 text-justify md:text-center font-[pixellari]">
                 {SYNOPSIS_TEXT}
               </p>
             </div>
@@ -233,22 +234,10 @@ function App() {
           transition={{
             delay: 0.2,
           }}
-          className=" text-white mt-24 text-center font-[pixellari] text-4xl"
+          className="text-center text-4xl font-[pixellari] text-white mt-24"
         >
-          MEET THE TEAM
+          MINT
         </motion.h1>
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{
-            delay: 0.2,
-          }}
-          className="flex flex-wrap flex-col justify-center items-center md:flex-row w-9/12 md:w-full align-center mx-auto gap-x-6 mt-6 max-w-4xl 2xl:max-w-6xl"
-        >
-          {MAIN_CHARACTERS.map((character) => (
-            <MainCharactersCard character={character} key={character.title} />
-          ))}
-        </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -259,16 +248,6 @@ function App() {
         >
           <span className="text-white">{WHITELIST_WINNING_NORMAL_TEXT}</span>
         </motion.div>
-        <motion.h1
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{
-            delay: 0.2,
-          }}
-          className="text-center text-4xl font-[pixellari] text-white mt-24"
-        >
-          MINT
-        </motion.h1>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -313,7 +292,7 @@ function App() {
           whileInView={{ opacity: 1 }}
           className="flex gap-4  font-[pixellari] text-3xl w-1/6 justify-center mt-2 mx-auto text-white"
         >
-         {!address && <button onClick={() => openConnectModal()}>Connect wallet</button>}
+         {!address && <button onClick={() => openConnectModal()}  className="border-[red]  border-solid border-2 bg-[red] px-4 py-2 mt-4 hover:opacity-80">Connect wallet</button>}
          {saleState === 3  &&   <><button
             className="text-white"
             onClick={() => handleMintAmount("-")}
@@ -340,6 +319,28 @@ function App() {
           
 }
           {status && <p className='text-[red] text-center mt-4'>{status}</p>}
+        <motion.h1
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            delay: 0.2,
+          }}
+          className=" text-white mt-24 text-center font-[pixellari] text-4xl"
+        >
+          MEET THE TEAM
+        </motion.h1>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            delay: 0.2,
+          }}
+          className="flex flex-wrap flex-col justify-center items-center md:flex-row w-9/12 md:w-full align-center mx-auto gap-x-6 mt-6 max-w-4xl 2xl:max-w-6xl"
+        >
+          {MAIN_CHARACTERS.map((character) => (
+            <MainCharactersCard character={character} key={character.title} />
+          ))}
+        </motion.div>
         
         <p className="text-[red] text-center mt-12 text-3xl uppercase font-[pixellari]">Undead Chefs</p>
         <p className="text-white text-center">Copyright © Undead Chefs 2023</p>

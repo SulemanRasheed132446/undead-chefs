@@ -9,49 +9,61 @@ export const MINTING_COLORED_TEXT = "A captivating adventure awaits – ";
 export const MINTING_NORMAL_TEXT =
   "Embark on an enchanting culinary odyssey with the Undead Chefs, where a mesmerizing blend of spectral ingredients and ghostly skills awaits. Join the Culinary Crypt crew for an immersive storytelling experience that transcends the boundaries of the living and the afterlife, ensuring an unforgettable journey into the realm of undead gastronomy";
 export const MAIN_CHARACTERS = [{
-    imageUrl: "/images/characters/image1.png",
-    title: "JB391",
+    imageUrl: "/images/characters/image6.png",
+    title: "Fresh Chef Aka Matt",
+    role:"Founder",
+    description: "A professionally trained chef and has been in Web3 for 18 months.",
     userName: "@JB_391",
   },
   {
-    imageUrl: "/images/characters/image2.png",
-    title: "Krakis",
+    imageUrl: "/images/characters/image1.jpg",
+    title: "CosoArt",
+    role:"Artist",
+    description: "legend behind this beautiful Undead Chef art and is the founder and artist of the LoomiHeads project.",
     userName: "@Krakis_",
   },
   {
-    imageUrl: "/images/characters/image3.png",
-    title: "President Deeter",
+    imageUrl: "/images/characters/image2.jpg",
+    title: "Chris Partlow",
+    role:"Advisor",
+    description: "Founder of the Paperboys project and a proud Genuine Undead holder",
     userName: "@PresDeeter",
   },
   {
-    imageUrl: "/images/characters/image4.png",
-    title: "Professor Eckelman",
+    imageUrl: "/images/characters/image3.jpg",
+    title: "Cleavy",
+    role:"Mod",
+    description: "Mod in Punks2023, Undead Chefs as well as PepeArmyYC",
     userName: "@ProfEckelman",
   },
   {
-    imageUrl: "/images/characters/image6.png",
-    title: "Dr. Bychov",
+    imageUrl: "/images/characters/image4.jpg",
+    title: "RayNay",
+    role:"Mod",
+    description: "Mod in the Punks2023 Discord and is the Collab Manager for DSKDAO",
+    userName: "@DrBychov",
+  },
+  {
+    imageUrl: "/images/characters/image5.jpg",
+    title: "Zuko",
+    role:"Mod",
+    description: "Member of the Paper boys project",
     userName: "@DrBychov",
   },
 ];
 export const CHARACTERS = [{
-    img: "/images/characters/ch6.png"
+    img: "/images/characters/ch1.jpg"
   },
   {
-    img: "/images/characters/ch7.png"
+    img: "/images/characters/ch2.gif"
   },
   {
-    img: "/images/characters/ch8.png"
+    img: "/images/characters/ch3.jpg"
   },
   {
-    img: "/images/characters/ch9.png"
+    img: "/images/characters/ch4.jpg"
   },
-  {
-    img: "/images/characters/ch10.png"
-  },
-  {
-    img: "/images/characters/ch11.png"
-  },
+
 ];
 
 export const contracts = {

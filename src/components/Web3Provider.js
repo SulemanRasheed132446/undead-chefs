@@ -13,7 +13,7 @@ const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID ?? "0ec7b16fb9939d89dedf
 const alchemyApiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY ?? "zFtQZoE1DUn-8er5Os1mHh6GWpMfASiu";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet, ...(process.env.NODE_ENV === "development" ? [goerli] : [goerli])],
+  [mainnet, ...(process.env.NODE_ENV === "development" ? [goerli] : [])],
   [alchemyProvider({ apiKey: alchemyApiKey }), publicProvider()]
 );
 

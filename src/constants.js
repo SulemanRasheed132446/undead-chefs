@@ -1,13 +1,11 @@
-export const SYNOPSIS_TEXT =
-  `In a mysterious afterlife portal, Undead Chefs emerge with spectral knives and an insatiable hunger for rare ingredients. Together, they form the Culinary Crypt, a guild creating otherworldly dishes with magical properties. Facing a threat from Flavor Phantoms, they embark on a perilous journey to concoct a protective dish. Collectors gain NFTs representing unique skills and tools, unlocking exclusive virtual experiences. In death, the Undead Chefs prove that the culinary arts can bring harmony to a world on the brink of chaos. Welcome to "Spectral Feast: Undead Culinary Quest`;
-export const PROJECT_DNE_TEXT =
-  "PROJECT DNE • PROJECT DNE • PROJECT DNE • PROJECT DNE • PROJECT DNE •  ";
-export const WHITELIST_WINNING_NORMAL_TEXT = `Dive deep into the mystical kitchen of the Undead Chefs by exploring our Discussion Boards on @UndeadCulinary. Engage in lively conversations, exchange tweets with the spectral Main Characters, and unveil hidden story clues`;
+export const SYNOPSIS_TEXT = `In a dystopian future, the Undead Chefs have risen from the depths of Hells Kitchen to hear the call.  4 Cyberpunk Chefs have vowed to automate the culinary world, removing all soul and passion for cooking.  The Hell’s Kitchen Brigade won’t stand for it!  Armed with the tools and the knowledge these Undead Chefs will take back their place in the kitchen, lead by the four legendary cuisine chefs.  Their taste for perfection is insatiable, and they won’t rest until every last dish is served`
+export const TEXT = `These are the Undead Chefs, Lets Cook!`
+export const WHITELIST_WINNING_NORMAL_TEXT = ` Dive deeper and learn more about what the Undead Chefs are cooking by following them on X @UndeadChefNFT`;
 export const WHITELIST_WINNING_COLORED_TEXT =
   "to win Whitelist spots, prizes and uncover additional story clues!";
 export const MINTING_COLORED_TEXT = "A captivating adventure awaits – ";
 export const MINTING_NORMAL_TEXT =
-  "Embark on an enchanting culinary odyssey with the Undead Chefs, where a mesmerizing blend of spectral ingredients and ghostly skills awaits. Join the Culinary Crypt crew for an immersive storytelling experience that transcends the boundaries of the living and the afterlife, ensuring an unforgettable journey into the realm of undead gastronomy";
+  "Becoming an Undead Chefs holder will grant you unique abilities to join the Hells Kitchen Brigade.  This Brigade will have the opportunity to buy high end kitchen tools as wholesale price, while also becoming an affiliate to create a revenue stream.  You also get to join the discussions as we decide together as a community which products, cookbooks, and other tools we would like to sell on the Undead Chefs Marketplace.  Mint your Undead Chefs and come join the culinary journey!";
 export const MAIN_CHARACTERS = [{
     imageUrl: "/images/characters/image6.png",
     title: "Fresh Chef Aka Matt",

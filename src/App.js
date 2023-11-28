@@ -9,7 +9,8 @@ import {
   MINTING_COLORED_TEXT,
   MINTING_NORMAL_TEXT,
   CHARACTERS,
-  contracts
+  contracts,
+  TEXT
 } from "./constants";
 import proofs from "./proofs";
 import MainCharactersCard from "./components/MainCharactersCard";
@@ -245,6 +246,9 @@ function App() {
               <p className="text-sm md:text-lg mt-4 leading-6 text-justify md:text-center font-[pixellari]">
                 {SYNOPSIS_TEXT}
               </p>
+              <p className="text-sm md:text-lg mt-4 leading-6 text-justify md:text-center font-[pixellari]">
+                {TEXT}
+              </p>
             </div>
           </div>
         </div>
@@ -267,7 +271,7 @@ function App() {
           transition={{
             delay: 0.2,
           }}
-          className="w-4/5 border-[red] border-2 px-6 py-4 mx-auto mt-36 info-box"
+          className="w-9/12 lg:w-fit border-[red] border-2 px-6 py-4 mx-auto mt-36 info-box"
         >
           <span className="text-white">{WHITELIST_WINNING_NORMAL_TEXT}</span>
         </motion.div>

@@ -1,13 +1,8 @@
 const { MerkleTree }  = require("merkletreejs") ;
 const keccak256  = require("keccak256") ;
 const fs = require('fs');
-const whitelistAddresses = [
-    "0x9c959f670Da90C66cf05F26d855ab3e7b0178E62",
-    "0x9c959f670Da90C66cf05F26d855ab3e7b0178E12",
-    "0x9c959f670Da90C66cf05F26d855ab3e7b0178Ea2",
-    "0x6D769f012EA529D898c82bfFdA7f51ecF4bd89Ef"
+const{whitelistAddresses} = require("./addresses")
 
-]
 const leafNodes = whitelistAddresses.map(address => keccak256(address));
 const merkletree = new MerkleTree(leafNodes, keccak256, {
     sortPairs: true

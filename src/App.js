@@ -338,7 +338,7 @@ function App() {
           </>}
         
         </motion.div>
-        {saleState === 0 && <button
+        {saleState && <button
             className="text-white border-[red] border-2 px-4 py-1 w-fit m-auto text-2xl mt-4 bg-[red] hover:opacity-80 cursor-pointer"
             onClick={() => handleMint()}
             disabled={status}

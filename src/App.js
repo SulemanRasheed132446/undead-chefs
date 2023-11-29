@@ -296,8 +296,8 @@ function App() {
           className="w-3/5 mx-auto mt-8  "
         >
           <p className="text-red-500 text=3xl text-center text-3xl">Details</p>
-          <p className="text-2xl text-white text-center"><span className="text-red-500">PRESALE:</span> Nov 28 -11 PM EST to 2 AM EST- 3 PER WALLET</p>
-          <p className="text-2xl text-white text-center"><span className="text-red-500">PRESALE 2:</span> Nov 29 - 2 AM EST to 5 AM - 3 PER WALLET</p>
+          <p className="text-2xl text-white text-center"><span className="text-red-500">PRESALE:</span> Nov 29 -11 PM EST to 2 AM EST- 3 PER WALLET</p>
+          <p className="text-2xl text-white text-center"><span className="text-red-500">PRESALE 2:</span> Nov 30 - 2 AM EST to 5 AM - 3 PER WALLET</p>
           <p className="text-2xl text-white text-center"><span className="text-red-500">PUBLIC MINT:</span> 5AM -TILL SELL OUT - 3 PER WALLET</p>
         </motion.div>
 

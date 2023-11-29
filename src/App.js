@@ -21,7 +21,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { Link } from "react-scroll";
 import { useAccount , useNetwork, useContractRead ,useContractWrite, usePrepareContractWrite, useWaitForTransaction} from 'wagmi';
 import {useEffect, useMemo} from "react";
-import {toBigInt} from "ethers"
+import {Network, toBigInt} from "ethers"
 function App() {
   const [mintAmount, setMintAmount] = useState(2);
   const handleMintAmount = (operation) => {
@@ -44,7 +44,7 @@ function App() {
   let [proof, setProof] = useState("");
   const contract =
     contracts[
-      chain?.name === "mainnet" ? "mainnet" : "goerli"
+      chain?.name === "Ethereum" ? "mainnet" : "goerli"
     ];
 
     const sharedConfig = {
@@ -191,6 +191,7 @@ function App() {
 
 
 
+  console.log(chain?.name, saleState, Network)
   return (
       <main className="bg-black font-[pixellari] ">
       <motion.div
@@ -337,7 +338,7 @@ function App() {
           </>}
         
         </motion.div>
-        {saleState && <button
+        {saleState === 0 && <button
             className="text-white border-[red] border-2 px-4 py-1 w-fit m-auto text-2xl mt-4 bg-[red] hover:opacity-80 cursor-pointer"
             onClick={() => handleMint()}
             disabled={status}

@@ -264,7 +264,7 @@ function App() {
           }}
           className="text-center text-4xl font-[pixellari] text-white mt-24"
         >
-          MINT
+          MINT INFO
         </motion.h1>
         <motion.div
           initial={{ opacity: 0 }}

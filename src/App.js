@@ -185,7 +185,7 @@ function App() {
   const mintDetails = useMemo(() => {
     if(saleState === 1) { return "Mint 3 for 0.005"}
     else if(saleState === 2) { return "Mint 3 for 0.005"}
-    else if(saleState === 3) { return "Mint 1 for .005 "}
+    else if(saleState === 3) { return "Mint 1 for 0.0025 "}
     return null
   }, [saleState])
 

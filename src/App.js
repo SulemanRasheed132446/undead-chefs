@@ -27,7 +27,7 @@ function App() {
   const handleMintAmount = (operation) => {
     if(operation === "+") {
       setMintAmount(mintAmount => {
-        if(mintAmount < 3) return mintAmount + 1;
+        if(mintAmount < 6) return mintAmount + 1;
         else return mintAmount
       })
     }else if(operation === "-") {
